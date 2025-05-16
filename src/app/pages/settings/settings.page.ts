@@ -1,14 +1,45 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController, ToastController } from '@ionic/angular';
+import {  AlertController, ToastController } from '@ionic/angular';
+import {
+  IonToggle,
+  IonLabel,
+  IonItem,
+  IonSelect,
+  IonSelectOption,
+  IonIcon,
+  IonNote,
+  IonInput,
+  IonButton,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonAlert,
+} from '@ionic/angular/standalone';
+import { HomePage } from '../home/home.page';
+
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
   styleUrls: ['./settings.page.scss'],
   standalone: true,
-  imports: [CommonModule, FormsModule, IonicModule]
+  imports: [CommonModule, FormsModule,  IonToggle,
+  IonLabel,
+  IonItem,
+  IonSelect,
+  IonSelectOption,
+  IonIcon,
+  IonNote,
+  IonInput,
+  IonButton,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonAlert,]
 })
 export class SettingsPage {
   @ViewChild('fileInput', { static: false }) fileInput!: ElementRef<HTMLInputElement>;
@@ -96,11 +127,15 @@ export class SettingsPage {
           handler: () => {
             localStorage.clear();
             this.showToast('Dáta boli vymazané');
+            setTimeout(() => {
+            window.location.reload(); 
+          }, 500);
           }
         }
       ]
     });
     await alert.present();
+
   }
 
   async showToast(message: string) {

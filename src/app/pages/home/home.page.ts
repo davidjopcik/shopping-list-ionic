@@ -50,7 +50,7 @@ import { IonProgressBar } from '@ionic/angular/standalone';
 export class HomePage implements OnInit {
 
 
-  shoppingLists: ShoppingList[] = DEFAULT_LISTS;
+  shoppingLists: ShoppingList[] = [];
 
   constructor(
     private router: Router,
@@ -63,6 +63,16 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
   const data = localStorage.getItem('shopping-lists');
+
+  if (!data) {
+    this.shoppingLists = DEFAULT_LISTS;
+    this.saveShoppingList();
+
+    DEFAULT_LISTS.forEach(list => {
+      localStorage.setItem(`shopping-list-${list.id}`, JSON.stringify(list.items));
+    });
+  }
+
   this.loadShoppingLists();
 }
 
