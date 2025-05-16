@@ -25,8 +25,8 @@ Toto je nákupná aplikácia ako školský projekt na VŠB FEI Ostrava vytvoren�
 
 ### 1. Klonovanie repozitára
 ```bash
-git clone https://github.com/tvoj-username/nakupny-zoznam.git
-cd nakupny-zoznam
+git clone https://github.com/davidjopcik/shopping-list-ionic.git
+cd shopping-list-ionic
 ```
 
 ### 2. Inštalácia závislostí
@@ -45,7 +45,7 @@ ionic cap build android
 ionic cap open android
 ```
 
-##  
+##  Technológie
 
 - [Ionic Framework](https://ionicframework.com/)
 - [Angular](https://angular.io/)
