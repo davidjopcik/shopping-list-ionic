@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonItem, IonIcon, IonFab, IonFabButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonItem, IonIcon, IonFab, IonFabButton, IonAlert } from '@ionic/angular/standalone';
 import { ShoppingList } from 'src/app/models/shopping-item';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { IonProgressBar } from '@ionic/angular/standalone';
+import type { OverlayEventDetail } from '@ionic/core';
+
 
   const DEFAULT_LISTS: ShoppingList[] = [
   {
@@ -44,7 +46,7 @@ import { IonProgressBar } from '@ionic/angular/standalone';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonProgressBar, IonFabButton, IonFab, IonIcon, IonItem, IonButton, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonAlert, IonProgressBar, IonFab, IonIcon, IonButton, IonCardContent, IonCardTitle, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class HomePage implements OnInit {
 
@@ -68,6 +70,7 @@ export class HomePage implements OnInit {
     });
   this.loadShoppingLists();
 }
+
 
   getTotalItems(list: ShoppingList): number {
     return list.items.length
@@ -96,18 +99,61 @@ export class HomePage implements OnInit {
     }
   }
 
-  async addShoppingList() {
-    console.log('Nova Funkcia sa spustila');
+
+  async showTestAlert() {
+  console.log('Spúšťam alert...');
+
+  try {
     const alert = await this.alertCtrl.create({
-      header: 'Test Alert',
-      message: 'Funguje to?',
+      header: 'Test',
+      message: 'Funguje alert na Androide?',
       buttons: ['OK']
     });
 
     await alert.present();
+    console.log('Alert zobrazený');
+  } catch (err) {
+    console.error('Chyba pri zobrazení alertu:', err);
   }
+}
 
-  async addShoppingList1() {
+  public alertInputs = [
+  {
+    name: 'name',
+    type: 'text',
+    placeholder: 'Názov zoznamu'
+  },
+  {
+    name: 'owner',
+    type: 'text',
+    placeholder: 'Majiteľ zoznamu'
+  }
+];
+
+public alertButtons = [
+  {
+    text: 'Zrušiť',
+    role: 'cancel'
+  },
+  {
+    text: 'Pridať',
+    role: 'confirm',
+    handler: (data: any) => {
+      if (!data.name || !data.owner) return false;
+      const newList: ShoppingList = {
+        id: Date.now(),
+        name: data.name,
+        owner: data.owner,
+        items: [],
+      };
+      this.shoppingLists.push(newList);
+      this.saveShoppingList();
+      return true;
+    }
+  }
+];
+
+  async addShoppingList() {
     const alert = await this.alertCtrl.create({
       header: 'Nový zoznam',
       inputs: [
@@ -145,25 +191,9 @@ export class HomePage implements OnInit {
     await alert.present();
   }
 
-  async deleteShoppingList(id: number, event: Event) {
-    event.stopPropagation()
-    const alert = await this.alertCtrl.create({
-      header: 'Naozaj chcete vymazať zoznam ' + this.shoppingLists.filter(item => item.id == id)[0].name + "? ",
-      buttons: [
-        {
-          text: 'Zrušiť',
-          role: 'Cancel'
-        },
-        {
-          text: 'Vymazať',
-          handler: () => {
-            this.shoppingLists = this.shoppingLists.filter(item => item.id !== id)
-            this.saveShoppingList()
-          }
-        }
-      ]
-    })
-    await alert.present()
-    this.saveShoppingList()
-  }
+deleteShoppingList(id: number) {
+  this.shoppingLists = this.shoppingLists.filter(item => item.id !== id);
+  this.saveShoppingList();
+}
+ 
 }

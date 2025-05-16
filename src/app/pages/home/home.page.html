@@ -6,7 +6,7 @@
 
 
 <ion-content [fullscreen]="true">
-  
+
 
   <ion-card *ngFor="let list of shoppingLists" style="border-radius: 10px;">
     <div (click)="openList(list.id)">
@@ -15,9 +15,25 @@
           <ion-card-title>
             {{list.name}}
           </ion-card-title>
-          <ion-icon name="trash-outline" class="delete-icon" (click)="deleteShoppingList(list.id, $event)">
+          
+          <ion-icon
+  name="trash-outline"
+  class="delete-icon"
+  [attr.trigger]="'delete-alert-' + list.id">
+</ion-icon>
 
-          </ion-icon>
+<ion-alert
+  [trigger]="'delete-alert-' + list.id"
+  header="Potvrdiť vymazanie"
+  [buttons]="[
+    { text: 'Zrušiť', role: 'cancel' },
+    {
+      text: 'Vymazať',
+      role: 'confirm',
+      handler: deleteShoppingList.bind(this, list.id)
+    }
+  ]">
+</ion-alert>
 
         </div>
 
@@ -38,9 +54,15 @@
     </div>
   </ion-card>
 
+
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-button class="new-list-button" shape="round" (click)="addShoppingList()">
-      + Nový zoznam
-    </ion-button>
+    <ion-button id="new-list-alert" class="new-list-button">+ Nový zoznam</ion-button>
+
+<ion-alert
+  trigger="new-list-alert"
+  header="Nový zoznam"
+  [inputs]="alertInputs"
+  [buttons]="alertButtons">
+</ion-alert>
   </ion-fab>
 </ion-content>
