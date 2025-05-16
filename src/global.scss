@@ -46,7 +46,7 @@
   --ion-color-tertiary: #36b9cc;
   --ion-color-light: #ffffff;
   --ion-color-medium: #d1d3e2;
-  --ion-color-dark: #5a5c69;
+  --ion-color-dark: #37373a;
 
   --ion-background-color: #eae9e9;
   --ion-text-color: #222222;
@@ -79,6 +79,11 @@ body.dark {
 
   --input-background: #2a2a2a;
   --input-border: #444444;
+
+  ion-toolbar {
+  --background: #1f1f2e;
+  --color: white;
+  }
 }
 
 /* ================================
@@ -89,6 +94,11 @@ ion-header {
   --background: var(--header-background);
   color: var(--header-text-color);
   font-weight: bold;
+}
+
+ion-toolbar {
+  --background: #eef0f3;
+  --color: #1f1f1f;
 }
 
 .custom-tab-bar {
@@ -114,6 +124,7 @@ ion-card {
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   margin: 16px;
   padding: 16px;
+  padding-bottom: 0px;
   transition: transform 0.2s ease, background-color 0.3s ease;
 
   &:hover {
