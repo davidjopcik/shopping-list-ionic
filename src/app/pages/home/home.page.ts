@@ -7,6 +7,37 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { IonProgressBar } from '@ionic/angular/standalone';
 
+  const DEFAULT_LISTS: ShoppingList[] = [
+  {
+    id: 1,
+    name: 'Potraviny',
+    owner: 'Peter',
+    items: [
+      { id: 101, name: 'Chlieb', purchased: false, category: 'Pečivo' },
+      { id: 102, name: 'Mlieko', purchased: true, category: 'Mliečne výrobky' },
+      { id: 103, name: 'Maslo', purchased: false, category: 'Mliečne výrobky' }
+    ]
+  },
+  {
+    id: 2,
+    name: 'Domácnosť',
+    owner: 'Zuzka',
+    items: [
+      { id: 201, name: 'Toaletný papier', purchased: false, category: 'Hygiena' },
+      { id: 202, name: 'Čistiaci prostriedok', purchased: true, category: 'Upratovanie' }
+    ]
+  },
+  {
+    id: 3,
+    name: 'Záhrada',
+    owner: 'Ján',
+    items: [
+      { id: 301, name: 'Kvetináče', purchased: false, category: 'Záhradníctvo' },
+      { id: 302, name: 'Zemina', purchased: false, category: 'Záhradníctvo' },
+      { id: 303, name: 'Rukavice', purchased: true, category: 'Príslušenstvo' }
+    ]
+  }
+];
 
 @Component({
   selector: 'app-home',
@@ -16,21 +47,27 @@ import { IonProgressBar } from '@ionic/angular/standalone';
   imports: [IonProgressBar, IonFabButton, IonFab, IonIcon, IonItem, IonButton, IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class HomePage implements OnInit {
+
+
   shoppingLists: ShoppingList[] = [];
-  public progress = 0;
 
   constructor(
     private router: Router,
     private alertCtrl: AlertController
   ) { }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
     this.loadShoppingLists()
   }
 
   ngOnInit() {
-    this.loadShoppingLists()
-  }
+  const data = localStorage.getItem('shopping-lists');
+    localStorage.setItem('shopping-lists', JSON.stringify(DEFAULT_LISTS));
+    DEFAULT_LISTS.forEach(list => {
+      localStorage.setItem(`shopping-list-${list.id}`, JSON.stringify(list.items));
+    });
+  this.loadShoppingLists();
+}
 
   getTotalItems(list: ShoppingList): number {
     return list.items.length
@@ -53,22 +90,22 @@ export class HomePage implements OnInit {
     if (data) {
       this.shoppingLists = JSON.parse(data);
       this.shoppingLists.forEach(list => {
-      const storedItems = localStorage.getItem(`shopping-list-${list.id}`);
-      list.items = storedItems ? JSON.parse(storedItems) : [];
-    });
+        const storedItems = localStorage.getItem(`shopping-list-${list.id}`);
+        list.items = storedItems ? JSON.parse(storedItems) : [];
+      });
     }
   }
 
   async addShoppingList() {
     console.log('Nova Funkcia sa spustila');
-  const alert = await this.alertCtrl.create({
-    header: 'Test Alert',
-    message: 'Funguje to?',
-    buttons: ['OK']
-  });
+    const alert = await this.alertCtrl.create({
+      header: 'Test Alert',
+      message: 'Funguje to?',
+      buttons: ['OK']
+    });
 
-  await alert.present();
-}
+    await alert.present();
+  }
 
   async addShoppingList1() {
     const alert = await this.alertCtrl.create({
@@ -121,7 +158,7 @@ export class HomePage implements OnInit {
           text: 'Vymazať',
           handler: () => {
             this.shoppingLists = this.shoppingLists.filter(item => item.id !== id)
-           this.saveShoppingList()
+            this.saveShoppingList()
           }
         }
       ]
