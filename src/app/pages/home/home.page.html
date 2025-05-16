@@ -15,26 +15,8 @@
           <ion-card-title>
             {{list.name}}
           </ion-card-title>
-          
-          <ion-icon
-  name="trash-outline"
-  class="delete-icon"
-  [attr.trigger]="'delete-alert-' + list.id">
-</ion-icon>
-
-<ion-alert
-  [trigger]="'delete-alert-' + list.id"
-  header="Potvrdiť vymazanie"
-  [buttons]="[
-    { text: 'Zrušiť', role: 'cancel' },
-    {
-      text: 'Vymazať',
-      role: 'confirm',
-      handler: deleteShoppingList.bind(this, list.id)
-    }
-  ]">
-</ion-alert>
-
+          <ion-icon name="trash-outline" class="delete-icon" (click)="presentDeleteAlert(list.id, $event)">
+          </ion-icon>
         </div>
 
         <div class="progress-row">
@@ -54,15 +36,10 @@
     </div>
   </ion-card>
 
-
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-button id="new-list-alert" class="new-list-button">+ Nový zoznam</ion-button>
 
-<ion-alert
-  trigger="new-list-alert"
-  header="Nový zoznam"
-  [inputs]="alertInputs"
-  [buttons]="alertButtons">
-</ion-alert>
+    <ion-alert trigger="new-list-alert" header="Nový zoznam" [inputs]="alertInputs" [buttons]="alertButtons">
+    </ion-alert>
   </ion-fab>
 </ion-content>

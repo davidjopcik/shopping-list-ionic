@@ -6,7 +6,6 @@ import { ShoppingList } from 'src/app/models/shopping-item';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { IonProgressBar } from '@ionic/angular/standalone';
-import type { OverlayEventDetail } from '@ionic/core';
 
 
   const DEFAULT_LISTS: ShoppingList[] = [
@@ -51,7 +50,7 @@ import type { OverlayEventDetail } from '@ionic/core';
 export class HomePage implements OnInit {
 
 
-  shoppingLists: ShoppingList[] = [];
+  shoppingLists: ShoppingList[] = DEFAULT_LISTS;
 
   constructor(
     private router: Router,
@@ -64,10 +63,6 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
   const data = localStorage.getItem('shopping-lists');
-    localStorage.setItem('shopping-lists', JSON.stringify(DEFAULT_LISTS));
-    DEFAULT_LISTS.forEach(list => {
-      localStorage.setItem(`shopping-list-${list.id}`, JSON.stringify(list.items));
-    });
   this.loadShoppingLists();
 }
 
@@ -98,24 +93,6 @@ export class HomePage implements OnInit {
       });
     }
   }
-
-
-  async showTestAlert() {
-  console.log('Spúšťam alert...');
-
-  try {
-    const alert = await this.alertCtrl.create({
-      header: 'Test',
-      message: 'Funguje alert na Androide?',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-    console.log('Alert zobrazený');
-  } catch (err) {
-    console.error('Chyba pri zobrazení alertu:', err);
-  }
-}
 
   public alertInputs = [
   {
@@ -153,47 +130,32 @@ public alertButtons = [
   }
 ];
 
-  async addShoppingList() {
-    const alert = await this.alertCtrl.create({
-      header: 'Nový zoznam',
-      inputs: [
-        {
-          name: 'name',
-          type: 'text',
-          placeholder: 'Názov zoznamu'
-        },
-        {
-          name: 'owner',
-          type: 'text',
-          placeholder: 'Majiteľ zoznamu'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Zrušiť',
-          role: 'Cancel'
-        },
-        {
-          text: 'Pridať',
-          handler: (data) => {
-            const newShoppingList = {
-              id: Date.now(),
-              name: data.name,
-              owner: data.owner,
-              items: [],
-            }
-            this.shoppingLists.push(newShoppingList)
-            this.saveShoppingList()
-          }
-        }
-      ]
-    })
-    await alert.present();
-  }
-
 deleteShoppingList(id: number) {
   this.shoppingLists = this.shoppingLists.filter(item => item.id !== id);
   this.saveShoppingList();
+}
+
+async presentDeleteAlert(id: number, event: Event) {
+  event.stopPropagation(); 
+
+  const alert = await this.alertCtrl.create({
+    header: 'Potvrdiť vymazanie',
+    buttons: [
+      {
+        text: 'Zrušiť',
+        role: 'cancel'
+      },
+      {
+        text: 'Vymazať',
+        role: 'confirm',
+        handler: () => {
+          this.deleteShoppingList(id);
+        }
+      }
+    ]
+  });
+
+  await alert.present();
 }
  
 }
