@@ -1,7 +1,7 @@
 import { Component, IterableDiffers, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonCheckbox, IonLabel, IonInput, IonButton, IonFabButton, IonFab, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonItem, IonCheckbox, IonLabel, IonInput, IonButton, IonFabButton, IonFab, IonIcon, IonFooter } from '@ionic/angular/standalone';
 import { ShoppingItem } from 'src/app/models/shopping-item';
 import { ActivatedRoute } from '@angular/router';
 import { HomePage } from '../home/home.page';
@@ -11,7 +11,7 @@ import { HomePage } from '../home/home.page';
   templateUrl: './list-detail.page.html',
   styleUrls: ['./list-detail.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonFab, IonButton, IonFabButton, IonInput, IonLabel, IonCheckbox, IonItem,  IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonFooter, IonIcon, IonFab, IonButton, IonFabButton, IonInput, IonLabel, IonCheckbox, IonItem,  IonCardContent, IonCardTitle, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class ListDetailPage implements OnInit {
   listId!: number;

@@ -35,3 +35,182 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* ================================
+   Global Theming for Light/Dark
+   ================================ */
+
+:root {
+  --ion-color-primary: #4e73df;
+  --ion-color-secondary: #1cc88a;
+  --ion-color-tertiary: #36b9cc;
+  --ion-color-light: #ffffff;
+  --ion-color-medium: #d1d3e2;
+  --ion-color-dark: #5a5c69;
+
+  --ion-background-color: #eae9e9;
+  --ion-text-color: #222222;
+  --ion-item-background: #ffffff;
+
+  --card-background: #ffffff;
+  --card-text-color: #333333;
+  --header-background: #000000;
+  --header-text-color: #ffffff;
+
+  --button-background: #4e73df;
+  --button-color: #ffffff;
+
+  --input-background: #ffffff;
+  --input-border: #cccccc;
+}
+
+body.dark {
+  --ion-background-color: #121212;
+  --ion-text-color: #ffffff;
+  --ion-item-background: #1f1f1f;
+
+  --card-background: #2c2f3a;
+  --card-text-color: #e2e2e2;
+  --header-background: #1f1f1f;
+  --header-text-color: #ffffff;
+
+  --button-background: #4e73df;
+  --button-color: #ffffff;
+
+  --input-background: #2a2a2a;
+  --input-border: #444444;
+}
+
+/* ================================
+   Page Layout Defaults
+   ================================ */
+
+ion-header {
+  --background: var(--header-background);
+  color: var(--header-text-color);
+  font-weight: bold;
+}
+
+.custom-tab-bar {
+  --background: var(--card-background);          
+  --color-selected: #4e73df;      
+  --border-top: 1px var(--ion-color-dark)
+}
+
+ion-content {
+  --background: var(--ion-background-color);
+  color: var(--ion-text-color);
+}
+
+ion-item {
+  --background: var(--ion-item-background);
+  color: var(--ion-text-color);
+}
+
+ion-card {
+  background-color: var(--card-background);
+  color: var(--card-text-color);
+  border-radius: 16px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  margin: 16px;
+  padding: 16px;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  ion-card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--card-text-color);
+  }
+
+  ion-card-content {
+    color: var(--card-text-color);
+    font-size: 14px;
+    opacity: 0.85;
+  }
+}
+
+ion-input, ion-select, ion-textarea {
+  --background: var(--input-background);
+  --border-color: var(--input-border);
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+ion-toggle::part(track) {
+  background: var(--ion-color-medium);
+}
+
+/* ================================
+   Custom Components (ProgressBar, Cards)
+   ================================ */
+
+.custom-progress {
+  flex: 1;
+  height: 10px;
+  --progress-background: linear-gradient(to right, #28a745, #20c997);
+  --background: #444b5a;
+  border-radius: 6px;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: var(--card-text-color);
+  min-width: 40px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+ion-icon.delete-icon {
+  color: #f06262;
+  font-size: 22px;
+  margin-left: auto;
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    color: #ff4d4d;
+    transform: scale(1.1);
+  }
+}
+
+ion-button {
+  --background: var(--button-background);
+  --color: var(--button-color);
+  border-radius: 25px;
+  font-weight: 600;
+}
+
+ion-fab .new-list-button {
+  --background: var(--button-background);
+  --color: var(--button-color);
+  padding: 0 20px;
+  height: 50px;
+  font-weight: bold;
+  border-radius: 25px;
+}
+
+/* Responsive typography */
+ion-title {
+  font-size: 20px;
+}
+
+ion-label, ion-note {
+  color: var(--ion-text-color);
+}
+
+/* Footer fix */
+ion-tab-bar {
+  --background: var(--ion-background-color);
+  border-top: 1px solid var(--ion-color-medium);
+} 
+
+ion-tab-button {
+  color: var(--ion-text-color);
+  &.tab-selected {
+    color: var(--ion-color-primary);
+  }
+}

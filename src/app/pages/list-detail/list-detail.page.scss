@@ -1,0 +1,44 @@
+.item-card {
+    margin: 0;
+    padding: 0;
+    background: var(--ion-item-background, #2c2f3a);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.input-fab {
+    width: 92%;
+    margin-left: 20px;
+    bottom: 9%;
+}
+
+.button-fab {
+    bottom: 1%;
+    margin-right: 5px;
+
+}
+
+.input-card {
+    margin-top: 8px;
+    border-radius: 12px;
+    background-color: var(--ion-color-light);
+}
+
+.purchased {
+    opacity: 0.65;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 16px 0;
+    gap: 8px;
+}
+
+.footer-strip {
+    margin-top: 24px;
+    font-weight: 500;
+    background: var(--ion-color-step-50, #f1f1f1);
+    border-radius: 8px;
+}

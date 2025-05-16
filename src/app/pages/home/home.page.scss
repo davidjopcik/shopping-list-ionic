@@ -1,50 +1,35 @@
-.new-list-button {
-    font-size: medium;
-    padding: 10px;;
-}
-.row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .card-text {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+  padding: 0 1rem 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
 }
 
-ion-card ion-card-content{
-    padding-left: 0;
-    margin-left: 0;
-}
-ion-card ion-card-title{
-    padding-top: 0.2rem;
-}
-
-.delete-icon{
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    padding-right: 0;
-    font-size: 22px;
+ion-icon.delete-icon {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  padding-right: 0;
+  font-size: 22px;
+  color: #f06262;
+  margin-left: auto;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
-.custom-progress {
-  height: 10px;
-  border-radius: 8px;
-  --background: #444; 
-  --progress-background: var(--ion-color-success); 
-  margin: 6px 0;
+ion-icon.delete-icon:hover {
+  color: #ff4d4d;
+  transform: scale(1.1);
 }
 
 .progress-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+  gap: 10px;
 }
 
-.progress-text {
-    white-space: nowrap;
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

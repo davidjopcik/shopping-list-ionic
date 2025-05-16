@@ -1,64 +1,63 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{listName}}</ion-title>
+    <ion-title>{{ listName }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card *ngFor="let item of activeItems">
+<ion-content [fullscreen]="true" class="ion-padding">
 
-    <ion-item>
-      <ion-checkbox slot="start" [(ngModel)]="item.selected" (ionChange)="saveItems()"> </ion-checkbox>
-      <ion-label>{{item.name}}</ion-label>
+  <!-- Aktívne položky -->
+  <ion-card *ngFor="let item of activeItems" class="item-card">
+    <ion-item lines="none">
+      <ion-checkbox slot="start" [(ngModel)]="item.selected" (ionChange)="saveItems()"></ion-checkbox>
+      <ion-label>{{ item.name }}</ion-label>
     </ion-item>
   </ion-card>
-  <ion-card>
-    <ion-input [(ngModel)]="newItemName">
 
-    </ion-input>
-  </ion-card>
-
-
-
-  <div style="display: flex; justify-content: space-between;">
-    <ion-button class="new-list-button" shape="round" (click)="markPurchased()">
-      Zakúpiť označené
-    </ion-button>
-
-    <ion-button class="new-list-button" shape="round" (click)="addItem()">
-      + Pridať
-    </ion-button>
+  <!-- Akcie -->
+  <div class="action-buttons">
+    <ion-button shape="round" color="success" (click)="markPurchased()">Zakúpiť označené</ion-button>
   </div>
 
   <!-- Pás s počtom a toggle -->
-  <ion-item lines="none" class="footer-strip" (click)="togglePurchasedVisibility()" button
-    *ngIf="purchasedItems.length > 0">
+  <ion-item lines="none" class="footer-strip" button (click)="togglePurchasedVisibility()" *ngIf="purchasedItems.length > 0">
     <ion-label>
-      ({{ purchasedItems.length }})
-      {{ purchased ? 'Skryť' : 'Zobraziť' }} začiarknuté položky
+      ({{ purchasedItems.length }}) {{ purchased ? 'Skryť' : 'Zobraziť' }} začiarknuté položky
     </ion-label>
     <ion-icon slot="end" [name]="purchased ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
   </ion-item>
 
-
-  <!-- Zakupene polozky -->
-
+  <!-- Zakúpené položky -->
   <div *ngIf="purchased">
-    <ion-card *ngFor="let item of purchasedItems">
-
-      <ion-item>
-        <ion-checkbox slot="start" [(ngModel)]="item.purchased" (ionChange)="saveItems()"> </ion-checkbox>
-        <ion-label>{{item.name}}</ion-label>
+    <ion-card *ngFor="let item of purchasedItems" class="item-card purchased">
+      <ion-item lines="none">
+        <ion-checkbox slot="start" [(ngModel)]="item.purchased" (ionChange)="saveItems()"></ion-checkbox>
+        <ion-label>{{ item.name }}</ion-label>
       </ion-item>
     </ion-card>
-    <ion-button class="new-list-button" shape="round" (click)="clearPurchased()">
-        Vymazať zakúpené
-      </ion-button>
+
+    <ion-button expand="block" color="danger" shape="round" (click)="clearPurchased()">
+      Vymazať zakúpené
+    </ion-button>
   </div>
 
+  <!-- Pridanie novej položky -->
 
 
+  <ion-fab slot="fixed" class="input-fab">
+    
+    <ion-item class="input-card" lines="none">
+      <ion-input [(ngModel)]="newItemName" placeholder="Napíš názov položky"></ion-input>
+    </ion-item>
 
+  </ion-fab>
+
+  <ion-fab slot="fixed" horizontal="end" class="button-fab">
+ <ion-button  shape="round" color="primary" (click)="addItem()">
+        + Pridať
+      </ion-button>
+  </ion-fab>
+     
 
 
 
