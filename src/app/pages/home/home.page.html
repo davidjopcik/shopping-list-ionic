@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Moje zoznamy</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content [fullscreen]="true">
+  
+
+  <ion-card *ngFor="let list of shoppingLists" style="border-radius: 10px;">
+    <div (click)="openList(list.id)">
+      <div class="card-text">
+        <div class="row">
+          <ion-card-title>
+            {{list.name}}
+          </ion-card-title>
+          <ion-icon name="trash-outline" class="delete-icon" (click)="deleteShoppingList(list.id, $event)">
+
+          </ion-icon>
+
+        </div>
+
+        <div class="progress-row">
+          <ion-progress-bar class="custom-progress"
+            [value]="getTotalItems(list) ? getPurchasedItems(list) / getTotalItems(list) : 0" color="success">
+          </ion-progress-bar>
+          <div class="progress-text">
+            {{getPurchasedItems(list)}} / {{getTotalItems(list)}}
+          </div>
+        </div>
+
+
+        <ion-card-content style="font-size: 18px;">
+          {{list.owner}}
+        </ion-card-content>
+      </div>
+    </div>
+  </ion-card>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-button class="new-list-button" shape="round" (click)="addShoppingList()">
+      + Nový zoznam
+    </ion-button>
+  </ion-fab>
+</ion-content>

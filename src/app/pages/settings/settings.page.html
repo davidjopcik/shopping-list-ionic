@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nastavenia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-item>
+    <ion-label>Dark mode</ion-label>
+    <ion-toggle (ionChange)="toggleDarkMode($event.detail.checked)"></ion-toggle>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Jazyk</ion-label>
+    <ion-select [(ngModel)]="language" (ionChange)="saveLanguage()">
+      <ion-select-option value="sk">Slovenčina</ion-select-option>
+      <ion-select-option value="en">English</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item button (click)="exportAllData()">
+    <ion-icon slot="start" name="download-outline"></ion-icon>
+    <ion-label>Exportovať všetky dáta</ion-label>
+  </ion-item>
+
+  <ion-item button (click)="triggerImport()">
+    <ion-icon slot="start" name="cloud-upload-outline"></ion-icon>
+    <ion-label>Importovať dáta</ion-label>
+  </ion-item>
+
+  <ion-item button (click)="confirmReset()">
+    <ion-icon slot="start" name="trash-outline"></ion-icon>
+    <ion-label>Vymazať všetky dáta</ion-label>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Verzia aplikácie</ion-label>
+    <ion-note slot="end">1.0.0</ion-note>
+  </ion-item>
+
+  <input type="file" hidden (change)="importData($event)" #fileInput />
+
+</ion-content>

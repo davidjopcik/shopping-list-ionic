@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Užívateľský profil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div style="text-align: center; margin-bottom: 20px;">
+    <img [src]="profile.photo || 'assets/default-avatar.png'" alt="Avatar" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;" />
+    <br />
+    <input type="file" accept="image/*" (change)="onImageSelected($event)" />
+  </div>
+
+  <ion-item>
+    <ion-label position="stacked">Meno</ion-label>
+    <ion-input type="text" [(ngModel)]="profile.name" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">E-mail</ion-label>
+    <ion-input type="email" [(ngModel)]="profile.email" required></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked">Heslo</ion-label>
+    <ion-input type="password" [(ngModel)]="profile.password"></ion-input>
+  </ion-item>
+
+  <ion-button expand="block" (click)="saveProfile()">Uložiť</ion-button>
+
+</ion-content>
