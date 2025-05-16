@@ -14,9 +14,15 @@
     </ion-item>
   </ion-card>
 
+<div class="input-row-wrapper">
+  <ion-input class="" [(ngModel)]="newItemName" placeholder="Napíš názov položky"></ion-input>
+  <ion-button shape="round" color="primary" (click)="addItem()">+ Pridať</ion-button>
+</div>
+  
+
   <!-- Akcie -->
-  <div class="action-buttons">
-    <ion-button shape="round" color="success" (click)="markPurchased()">Zakúpiť označené</ion-button>
+  <div style="margin-top: 10px;">
+    <ion-button expand="block" shape="round" color="success" (click)="markPurchased()">Zakúpiť označené</ion-button>
   </div>
 
   <!-- Pás s počtom a toggle -->
@@ -36,30 +42,11 @@
       </ion-item>
     </ion-card>
 
+     
     <ion-button expand="block" color="danger" shape="round" (click)="clearPurchased()">
       Vymazať zakúpené
     </ion-button>
   </div>
-
-  <!-- Pridanie novej položky -->
-
-
-  <ion-fab slot="fixed" class="input-fab">
-    
-    <ion-item class="input-card" lines="none">
-      <ion-input [(ngModel)]="newItemName" placeholder="Napíš názov položky"></ion-input>
-    </ion-item>
-
-  </ion-fab>
-
-  <ion-fab slot="fixed" horizontal="end" class="button-fab">
- <ion-button  shape="round" color="primary" (click)="addItem()">
-        + Pridať
-      </ion-button>
-  </ion-fab>
-     
-
-
 
 
 </ion-content>

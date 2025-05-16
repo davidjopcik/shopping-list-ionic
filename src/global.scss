@@ -94,6 +94,12 @@ ion-header {
   --background: var(--header-background);
   color: var(--header-text-color);
   font-weight: bold;
+  ion-toolbar {
+    ion-title {
+      padding-top: 8%;
+      padding-bottom: 2%;
+    }
+  }
 }
 
 ion-toolbar {
