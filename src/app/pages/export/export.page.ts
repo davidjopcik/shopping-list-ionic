@@ -17,28 +17,26 @@ export class ExportPage {
   constructor(
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
-  ) {}
+  ) { }
 
   exportData() {
-    const lists = localStorage.getItem('shopping-lists');
-    if (!lists) return;
+    const rawLists = localStorage.getItem('shopping-lists');
+    if (!rawLists) return;
 
-    const parsedLists = JSON.parse(lists);
-    const dataToExport: {
-  shoppingLists: any[],
-  items: Record<number, any[]>
-} = {
-  shoppingLists: parsedLists,
-  items: {}
-};
+    const parsedLists = JSON.parse(rawLists);
 
-    parsedLists.forEach((list: any) => {
+    const listsWithItems = parsedLists.map((list: any) => {
       const itemsKey = `shopping-list-${list.id}`;
       const items = localStorage.getItem(itemsKey);
-      if (items) {
-        dataToExport.items[list.id] = JSON.parse(items);
-      }
+      return {
+        ...list,
+        items: items ? JSON.parse(items) : []
+      };
     });
+
+    const dataToExport = {
+      shoppingLists: listsWithItems
+    };
 
     const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -60,31 +58,41 @@ export class ExportPage {
     input.click();
   }
 
-  importData(event: any) {
-    const file = event.target.files[0];
+  importData(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = () => {
       try {
         const data = JSON.parse(reader.result as string);
-        if (data.shoppingLists && data.items) {
-          localStorage.setItem('shopping-lists', JSON.stringify(data.shoppingLists));
+
+        if (Array.isArray(data.shoppingLists)) {
+          const simplifiedLists = data.shoppingLists.map((list: any) => ({
+            id: list.id,
+            name: list.name,
+            owner: list.owner
+          }));
+
+          localStorage.setItem('shopping-lists', JSON.stringify(simplifiedLists));
+
           data.shoppingLists.forEach((list: any) => {
-            const items = data.items[list.id] || [];
+            const items = Array.isArray(list.items) ? list.items : [];
             localStorage.setItem(`shopping-list-${list.id}`, JSON.stringify(items));
           });
+
           this.showToast('Import prebehol úspešne');
         } else {
-          alert('Neplatný formát súboru.');
+          this.showToast('Neplatný formát súboru');
         }
       } catch (err) {
-        alert('Chyba pri načítaní JSON.');
+        this.showToast('Chyba pri načítaní JSON');
       }
     };
+
     reader.readAsText(file);
   }
-
+  
   async showToast(message: string) {
     const toast = await this.toastCtrl.create({
       message,
